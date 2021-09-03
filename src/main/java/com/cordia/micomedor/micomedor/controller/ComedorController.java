@@ -36,6 +36,7 @@ public class ComedorController {
 	@Autowired
 	ComedorRepository comedorRepository;
 
+	// Obtener todos los comedores
 	@GetMapping("/comedores")
 	public ResponseEntity<List<Comedor>> getComedores(@RequestParam(required = false) String nombre) {
 		try {
@@ -55,6 +56,7 @@ public class ComedorController {
 		}
 	}
 
+	// Obtener un comedor por id
 	@GetMapping("/comedores/{id}")
 	public ResponseEntity<Comedor> getComedoresId(@PathVariable("id") Long id) {
 		Optional<Comedor> comedorData = comedorRepository.findById(id);
@@ -66,6 +68,7 @@ public class ComedorController {
 		}
 	}
 
+	//Crear un comedor
 	@PostMapping("/comedores")
 	public ResponseEntity<Comedor> createComedor(@RequestBody Comedor comedor) {
 		try {
