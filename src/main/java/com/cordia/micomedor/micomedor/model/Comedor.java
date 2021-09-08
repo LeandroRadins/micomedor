@@ -34,13 +34,13 @@ public class Comedor {
 	private String correo;
 
 	@Column(name = "telefono")
-	private int telefono;
+	private String telefono;
 
 	public Comedor() {
 
 	}
 
-	public Comedor(String nombre, String direccion, String correo, int telefono) {
+	public Comedor(String nombre, String direccion, String correo, String telefono) {
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.correo = correo;
@@ -106,14 +106,14 @@ public class Comedor {
 	/**
 	 * @return the telefono
 	 */
-	public int getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
 	/**
 	 * @param telefono the telefono to set
 	 */
-	public void setTelefono(int telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 

@@ -124,8 +124,7 @@ export default class AddComedor extends Component {
             <div className="form-group">
               <label htmlFor="telefono">Telefono</label>
               <input
-                type="number"
-                size="12"
+                type="text"
                 className="form-control"
                 id="telefono"
                 required

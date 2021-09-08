@@ -3,7 +3,6 @@ import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import AddComedor from "./components/comedor/add-comedor.component";
-import Comedor from "./components/comedor/comedor.component";
 import ComedoresList from "./components/comedor/comedor-list.component";
 
 class App extends Component {
@@ -15,11 +14,11 @@ class App extends Component {
             MiComedor
           </a>
           <div className="navbar-nav mr-auto">
-           {/*  <li className="nav-item">
+            <li className="nav-item">
               <Link to={"/comedores"} className="nav-link">
                 Comedores
               </Link>
-            </li> */}
+            </li>
             <li className="nav-item">
               <Link to={"/agregarComedor"} className="nav-link">
                 Agregar
@@ -29,9 +28,9 @@ class App extends Component {
         </nav>
         <div className="container mt-3">
           <Switch>
-            {/* <Route exact path={["/", "/comedores"]} component={ComedoresList} /> */}
+            <Route exact path={["/", "/comedores"]} component={ComedoresList} />
             <Route exact path="/agregarComedor" component={AddComedor} />
-           {/*  <Route exact path="/comedores/:id" component={Comedor} /> */}
+            {/*  <Route exact path="/comedores/:id" component={Comedor} /> */}
           </Switch>
         </div>
       </div>
