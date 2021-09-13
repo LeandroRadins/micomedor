@@ -17,33 +17,31 @@ import javax.persistence.Table;
  * @author Leandro
  *
  */
-
 @Entity
-@Table(name = "fichas")
-public class Ficha {
+@Table(name = "ingredientes")
+public class Ingrediente {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_ficha")
-	@SequenceGenerator(name = "seq_ficha", allocationSize = 1)
-	private Long id_ficha;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_ingrediente")
+	@SequenceGenerator(name = "seq_ingrediente", allocationSize = 1)
+	private Long id_ingrediente;
 
 	@Column(name = "nombre")
 	private String nombre;
-	// #TODO: agregar relaciones con patologias
 
-	public Ficha() {
+	public Ingrediente() {
 
 	}
 
-	public Ficha(String nombre) {
+	public Ingrediente(String nombre) {
 		this.nombre = nombre;
 	}
 
 	/**
-	 * @return the id_ficha
+	 * @return the id_ingrediente
 	 */
-	public Long getId_ficha() {
-		return id_ficha;
+	public Long getId_ingrediente() {
+		return id_ingrediente;
 	}
 
 	/**
@@ -54,10 +52,10 @@ public class Ficha {
 	}
 
 	/**
-	 * @param id_ficha the id_ficha to set
+	 * @param id_ingrediente the id_ingrediente to set
 	 */
-	public void setId_ficha(Long id_ficha) {
-		this.id_ficha = id_ficha;
+	public void setId_ingrediente(Long id_ingrediente) {
+		this.id_ingrediente = id_ingrediente;
 	}
 
 	/**
@@ -69,24 +67,24 @@ public class Ficha {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id_ficha, nombre);
+		return Objects.hash(id_ingrediente, nombre);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Ficha))
+		if (!(obj instanceof Ingrediente))
 			return false;
-		Ficha other = (Ficha) obj;
-		return Objects.equals(id_ficha, other.id_ficha) && Objects.equals(nombre, other.nombre);
+		Ingrediente other = (Ingrediente) obj;
+		return Objects.equals(id_ingrediente, other.id_ingrediente) && Objects.equals(nombre, other.nombre);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Ficha [id_ficha=");
-		builder.append(id_ficha);
+		builder.append("Ingrediente [id_ingrediente=");
+		builder.append(id_ingrediente);
 		builder.append(", nombre=");
 		builder.append(nombre);
 		builder.append("]");

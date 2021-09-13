@@ -4,6 +4,7 @@
 package com.cordia.micomedor.micomedor.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -25,9 +26,9 @@ import javax.persistence.TemporalType;
  */
 
 @Entity
-@Table (name = "usuarios")
+@Table(name = "usuarios")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="tipo_usuario", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "tipo_usuario", discriminatorType = DiscriminatorType.STRING)
 // #TODO: Hacer que el usuario este basado en roles y permisos. Ej: https://www.codejava.net/frameworks/spring-boot/spring-boot-security-role-based-authorization-tutorial
 public abstract class Usuario {
 	@Id
@@ -150,6 +151,44 @@ public abstract class Usuario {
 	 */
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(apellido, dni, email, fechaNac, id_usuario, nombre, telefono);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Usuario))
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(apellido, other.apellido) && dni == other.dni && Objects.equals(email, other.email)
+				&& Objects.equals(fechaNac, other.fechaNac) && Objects.equals(id_usuario, other.id_usuario)
+				&& Objects.equals(nombre, other.nombre) && Objects.equals(telefono, other.telefono);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Usuario [id_usuario=");
+		builder.append(id_usuario);
+		builder.append(", dni=");
+		builder.append(dni);
+		builder.append(", nombre=");
+		builder.append(nombre);
+		builder.append(", apellido=");
+		builder.append(apellido);
+		builder.append(", fechaNac=");
+		builder.append(fechaNac);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", telefono=");
+		builder.append(telefono);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

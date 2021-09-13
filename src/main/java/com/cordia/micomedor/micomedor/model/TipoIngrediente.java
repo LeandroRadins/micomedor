@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cordia.micomedor.micomedor.model;
 
 import java.util.Objects;
@@ -10,40 +7,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-/**
- * @author Leandro
- *
- */
-
 @Entity
-@Table(name = "fichas")
-public class Ficha {
+@Table(name = "tipo_ingrediente")
+public class TipoIngrediente {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_ficha")
-	@SequenceGenerator(name = "seq_ficha", allocationSize = 1)
-	private Long id_ficha;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tipoIngrediente")
+	private Long id_tipoIngrediente;
 
 	@Column(name = "nombre")
 	private String nombre;
-	// #TODO: agregar relaciones con patologias
 
-	public Ficha() {
+	public TipoIngrediente() {
 
 	}
 
-	public Ficha(String nombre) {
+	public TipoIngrediente(String nombre) {
 		this.nombre = nombre;
 	}
 
 	/**
-	 * @return the id_ficha
+	 * @return the id_tipoIngrediente
 	 */
-	public Long getId_ficha() {
-		return id_ficha;
+	public Long getId_tipoIngrediente() {
+		return id_tipoIngrediente;
 	}
 
 	/**
@@ -54,10 +43,10 @@ public class Ficha {
 	}
 
 	/**
-	 * @param id_ficha the id_ficha to set
+	 * @param id_tipoIngrediente the id_tipoIngrediente to set
 	 */
-	public void setId_ficha(Long id_ficha) {
-		this.id_ficha = id_ficha;
+	public void setId_tipoIngrediente(Long id_tipoIngrediente) {
+		this.id_tipoIngrediente = id_tipoIngrediente;
 	}
 
 	/**
@@ -69,24 +58,24 @@ public class Ficha {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id_ficha, nombre);
+		return Objects.hash(id_tipoIngrediente, nombre);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Ficha))
+		if (!(obj instanceof TipoIngrediente))
 			return false;
-		Ficha other = (Ficha) obj;
-		return Objects.equals(id_ficha, other.id_ficha) && Objects.equals(nombre, other.nombre);
+		TipoIngrediente other = (TipoIngrediente) obj;
+		return Objects.equals(id_tipoIngrediente, other.id_tipoIngrediente) && Objects.equals(nombre, other.nombre);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Ficha [id_ficha=");
-		builder.append(id_ficha);
+		builder.append("TipoIngrediente [id_tipoIngrediente=");
+		builder.append(id_tipoIngrediente);
 		builder.append(", nombre=");
 		builder.append(nombre);
 		builder.append("]");

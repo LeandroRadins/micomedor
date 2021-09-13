@@ -32,7 +32,7 @@ public class Asistencia {
 	@Column(name = "dia")
 	@Temporal(TemporalType.DATE)
 	private Date dia;
-	
+
 	@Column(name = "asistencia")
 	private boolean asistencia;
 
@@ -105,7 +105,15 @@ public class Asistencia {
 
 	@Override
 	public String toString() {
-		return "Asistencia [id_asistencia=" + id_asistencia + ", dia=" + dia + ", asistencia=" + asistencia + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Asistencia [id_asistencia=");
+		builder.append(id_asistencia);
+		builder.append(", dia=");
+		builder.append(dia);
+		builder.append(", asistencia=");
+		builder.append(asistencia);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

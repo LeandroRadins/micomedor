@@ -10,6 +10,7 @@ import javax.persistence.Entity;
  * @author Leandro
  *
  */
-public class Representante {
-
+@Entity
+@DiscriminatorValue(value = "REPRESENTANTE")
+public class Representante extends Usuario {
 }

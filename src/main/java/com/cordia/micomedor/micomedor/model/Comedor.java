@@ -3,6 +3,8 @@
  */
 package com.cordia.micomedor.micomedor.model;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,9 +22,9 @@ import javax.persistence.Table;
 public class Comedor {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqComedores")
-	@SequenceGenerator(name = "seqComedores", allocationSize = 1)
-	private Long idComedor;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_comedores")
+	@SequenceGenerator(name = "seq_comedores", allocationSize = 1)
+	private Long id_comedor;
 
 	@Column(name = "nombre")
 	private String nombre;
@@ -48,17 +50,17 @@ public class Comedor {
 	}
 
 	/**
-	 * @return the idComedor
+	 * @return the id_comedor
 	 */
-	public Long getIdComedor() {
-		return idComedor;
+	public Long getId_comedor() {
+		return id_comedor;
 	}
 
 	/**
-	 * @param idComedor the idComedor to set
+	 * @param id_comedor the id_comedor to set
 	 */
-	public void setIdComedor(Long idComedor) {
-		this.idComedor = idComedor;
+	public void setId_comedor(Long id_comedor) {
+		this.id_comedor = id_comedor;
 	}
 
 	/**
@@ -115,6 +117,40 @@ public class Comedor {
 	 */
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(correo, direccion, id_comedor, nombre, telefono);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Comedor))
+			return false;
+		Comedor other = (Comedor) obj;
+		return Objects.equals(correo, other.correo) && Objects.equals(direccion, other.direccion)
+				&& Objects.equals(id_comedor, other.id_comedor) && Objects.equals(nombre, other.nombre)
+				&& Objects.equals(telefono, other.telefono);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Comedor [id_comedor=");
+		builder.append(id_comedor);
+		builder.append(", nombre=");
+		builder.append(nombre);
+		builder.append(", direccion=");
+		builder.append(direccion);
+		builder.append(", correo=");
+		builder.append(correo);
+		builder.append(", telefono=");
+		builder.append(telefono);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

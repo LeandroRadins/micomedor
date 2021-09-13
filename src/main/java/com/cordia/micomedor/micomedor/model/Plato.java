@@ -17,33 +17,36 @@ import javax.persistence.Table;
  * @author Leandro
  *
  */
-
 @Entity
-@Table(name = "fichas")
-public class Ficha {
+@Table(name = "platos")
+public class Plato {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_ficha")
-	@SequenceGenerator(name = "seq_ficha", allocationSize = 1)
-	private Long id_ficha;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_plato")
+	@SequenceGenerator(name = "seq_plato", allocationSize = 1)
+	private Long id_plato;
 
 	@Column(name = "nombre")
 	private String nombre;
-	// #TODO: agregar relaciones con patologias
 
-	public Ficha() {
+	public Plato() {
 
 	}
 
-	public Ficha(String nombre) {
+	/**
+	 * @param id_plato
+	 * @param nombre
+	 */
+	public Plato(Long id_plato, String nombre) {
+		this.id_plato = id_plato;
 		this.nombre = nombre;
 	}
 
 	/**
-	 * @return the id_ficha
+	 * @return the id_plato
 	 */
-	public Long getId_ficha() {
-		return id_ficha;
+	public Long getId_plato() {
+		return id_plato;
 	}
 
 	/**
@@ -54,10 +57,10 @@ public class Ficha {
 	}
 
 	/**
-	 * @param id_ficha the id_ficha to set
+	 * @param id_plato the id_plato to set
 	 */
-	public void setId_ficha(Long id_ficha) {
-		this.id_ficha = id_ficha;
+	public void setId_plato(Long id_plato) {
+		this.id_plato = id_plato;
 	}
 
 	/**
@@ -69,24 +72,24 @@ public class Ficha {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id_ficha, nombre);
+		return Objects.hash(id_plato, nombre);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Ficha))
+		if (!(obj instanceof Plato))
 			return false;
-		Ficha other = (Ficha) obj;
-		return Objects.equals(id_ficha, other.id_ficha) && Objects.equals(nombre, other.nombre);
+		Plato other = (Plato) obj;
+		return Objects.equals(id_plato, other.id_plato) && Objects.equals(nombre, other.nombre);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Ficha [id_ficha=");
-		builder.append(id_ficha);
+		builder.append("Plato [id_plato=");
+		builder.append(id_plato);
 		builder.append(", nombre=");
 		builder.append(nombre);
 		builder.append("]");

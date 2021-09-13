@@ -86,7 +86,13 @@ public class Calendario {
 
 	@Override
 	public String toString() {
-		return "Calendario [id_calendario=" + id_calendario + ", fecha=" + fecha + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Calendario [id_calendario=");
+		builder.append(id_calendario);
+		builder.append(", fecha=");
+		builder.append(fecha);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }
