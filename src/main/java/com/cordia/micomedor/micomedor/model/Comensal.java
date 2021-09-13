@@ -4,10 +4,12 @@
 package com.cordia.micomedor.micomedor.model;
 
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 /**
  * @author Leandro
@@ -20,6 +22,9 @@ public class Comensal extends Usuario {
 
 	@Column(name = "marcaAsistencia")
 	private boolean marcaAsistencia;
+
+	@OneToMany(mappedBy = "comensal")
+	private Set<Asistencia> asistencias;
 
 	public Comensal() {
 
@@ -46,19 +51,38 @@ public class Comensal extends Usuario {
 		this.marcaAsistencia = marcaAsistencia;
 	}
 
+	/**
+	 * @return the asistencias
+	 */
+	public Set<Asistencia> getAsistencias() {
+		return asistencias;
+	}
+
+	/**
+	 * @param asistencias the asistencias to set
+	 */
+	public void setAsistencias(Set<Asistencia> asistencias) {
+		this.asistencias = asistencias;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(marcaAsistencia);
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(asistencias, marcaAsistencia);
+		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
+		if (!super.equals(obj))
+			return false;
 		if (!(obj instanceof Comensal))
 			return false;
 		Comensal other = (Comensal) obj;
-		return marcaAsistencia == other.marcaAsistencia;
+		return Objects.equals(asistencias, other.asistencias) && marcaAsistencia == other.marcaAsistencia;
 	}
 
 	@Override
@@ -66,6 +90,8 @@ public class Comensal extends Usuario {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Comensal [marcaAsistencia=");
 		builder.append(marcaAsistencia);
+		builder.append(", asistencias=");
+		builder.append(asistencias);
 		builder.append("]");
 		return builder.toString();
 	}

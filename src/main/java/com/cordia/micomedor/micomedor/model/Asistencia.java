@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -36,13 +38,18 @@ public class Asistencia {
 	@Column(name = "asistencia")
 	private boolean asistencia;
 
+	@ManyToOne
+	@JoinColumn(name = "id_comensal")
+	private Comensal comensal;
+
 	public Asistencia() {
 
 	}
 
-	public Asistencia(Date dia, boolean asistencia) {
+	public Asistencia(Date dia, boolean asistencia, Comensal comensal) {
 		this.dia = dia;
 		this.asistencia = true;
+		this.comensal = comensal;
 	}
 
 	/**
@@ -87,9 +94,23 @@ public class Asistencia {
 		this.asistencia = asistencia;
 	}
 
+	/**
+	 * @return the comensal
+	 */
+	public Comensal getComensal() {
+		return comensal;
+	}
+
+	/**
+	 * @param comensal the comensal to set
+	 */
+	public void setComensal(Comensal comensal) {
+		this.comensal = comensal;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(asistencia, dia, id_asistencia);
+		return Objects.hash(asistencia, comensal, dia, id_asistencia);
 	}
 
 	@Override
@@ -99,8 +120,8 @@ public class Asistencia {
 		if (!(obj instanceof Asistencia))
 			return false;
 		Asistencia other = (Asistencia) obj;
-		return asistencia == other.asistencia && Objects.equals(dia, other.dia)
-				&& Objects.equals(id_asistencia, other.id_asistencia);
+		return asistencia == other.asistencia && Objects.equals(comensal, other.comensal)
+				&& Objects.equals(dia, other.dia) && Objects.equals(id_asistencia, other.id_asistencia);
 	}
 
 	@Override
@@ -112,6 +133,8 @@ public class Asistencia {
 		builder.append(dia);
 		builder.append(", asistencia=");
 		builder.append(asistencia);
+		builder.append(", comensal=");
+		builder.append(comensal);
 		builder.append("]");
 		return builder.toString();
 	}
