@@ -3,12 +3,14 @@
  */
 package com.cordia.micomedor.micomedor.model;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
@@ -26,8 +28,11 @@ public class Comensal extends Usuario {
 	@OneToMany(mappedBy = "comensal")
 	private Set<Asistencia> asistencias;
 
-	public Comensal() {
+	@ManyToMany(mappedBy = "comensales")
+	private Set<Comedor> comedores = new HashSet<>();
 
+	public Comensal() {
+		super();
 	}
 
 	/**
@@ -63,6 +68,20 @@ public class Comensal extends Usuario {
 	 */
 	public void setAsistencias(Set<Asistencia> asistencias) {
 		this.asistencias = asistencias;
+	}
+
+	/**
+	 * @return the comedores
+	 */
+	public Set<Comedor> getComedores() {
+		return comedores;
+	}
+
+	/**
+	 * @param comedores the comedores to set
+	 */
+	public void setComedores(Set<Comedor> comedores) {
+		this.comedores = comedores;
 	}
 
 	@Override

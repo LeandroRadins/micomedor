@@ -68,7 +68,7 @@ public class ComedorController {
 		}
 	}
 
-	//Crear un comedor
+	// Crear un comedor
 	@PostMapping("/comedores")
 	public ResponseEntity<Comedor> createComedor(@RequestBody Comedor comedor) {
 		try {

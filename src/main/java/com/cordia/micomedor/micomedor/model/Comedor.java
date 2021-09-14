@@ -3,13 +3,18 @@
  */
 package com.cordia.micomedor.micomedor.model;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -37,6 +42,11 @@ public class Comedor {
 
 	@Column(name = "telefono")
 	private String telefono;
+
+	@ManyToMany
+	@JoinTable(name = "comedor_comensal", joinColumns = { @JoinColumn(name = "id_comedor") }, inverseJoinColumns = {
+			@JoinColumn(name = "id_usuario") })
+	private Set<Comensal> comensales = new HashSet<>();
 
 	public Comedor() {
 
@@ -117,6 +127,20 @@ public class Comedor {
 	 */
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	/**
+	 * @return the comensales
+	 */
+	public Set<Comensal> getComensales() {
+		return comensales;
+	}
+
+	/**
+	 * @param comensales the comensales to set
+	 */
+	public void setComensales(Set<Comensal> comensales) {
+		this.comensales = comensales;
 	}
 
 	@Override
