@@ -26,7 +26,7 @@ public class Comensal extends Usuario {
 	private boolean marcaAsistencia;
 
 	@OneToMany(mappedBy = "comensal")
-	private Set<Asistencia> asistencias;
+	private Set<Asistencia> asistencias = new HashSet<>();
 
 	@ManyToMany(mappedBy = "comensales")
 	private Set<Comedor> comedores = new HashSet<>();

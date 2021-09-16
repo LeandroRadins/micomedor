@@ -31,6 +31,10 @@ public class Donacion {
 	@JoinColumn(name = "tipo_donacion")
 	private TipoDonacion tipo_donacion;
 
+	@ManyToOne
+	@JoinColumn(name = "comedor")
+	private Comedor comedor;
+
 	public Donacion() {
 
 	}
@@ -47,15 +51,43 @@ public class Donacion {
 	}
 
 	/**
+	 * @return the tipo_donacion
+	 */
+	public TipoDonacion getTipo_donacion() {
+		return tipo_donacion;
+	}
+
+	/**
+	 * @return the comedor
+	 */
+	public Comedor getComedor() {
+		return comedor;
+	}
+
+	/**
 	 * @param id_donacion the id_donacion to set
 	 */
 	public void setId_donacion(Long id_donacion) {
 		this.id_donacion = id_donacion;
 	}
 
+	/**
+	 * @param tipo_donacion the tipo_donacion to set
+	 */
+	public void setTipo_donacion(TipoDonacion tipo_donacion) {
+		this.tipo_donacion = tipo_donacion;
+	}
+
+	/**
+	 * @param comedor the comedor to set
+	 */
+	public void setComedor(Comedor comedor) {
+		this.comedor = comedor;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id_donacion, tipo_donacion);
+		return Objects.hash(comedor, id_donacion, tipo_donacion);
 	}
 
 	@Override
@@ -65,7 +97,8 @@ public class Donacion {
 		if (!(obj instanceof Donacion))
 			return false;
 		Donacion other = (Donacion) obj;
-		return Objects.equals(id_donacion, other.id_donacion) && Objects.equals(tipo_donacion, other.tipo_donacion);
+		return Objects.equals(comedor, other.comedor) && Objects.equals(id_donacion, other.id_donacion)
+				&& Objects.equals(tipo_donacion, other.tipo_donacion);
 	}
 
 	@Override
@@ -75,6 +108,8 @@ public class Donacion {
 		builder.append(id_donacion);
 		builder.append(", tipo_donacion=");
 		builder.append(tipo_donacion);
+		builder.append(", comedor=");
+		builder.append(comedor);
 		builder.append("]");
 		return builder.toString();
 	}

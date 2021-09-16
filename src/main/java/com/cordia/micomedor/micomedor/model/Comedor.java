@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -47,6 +48,9 @@ public class Comedor {
 	@JoinTable(name = "comedor_comensal", joinColumns = { @JoinColumn(name = "id_comedor") }, inverseJoinColumns = {
 			@JoinColumn(name = "id_usuario") })
 	private Set<Comensal> comensales = new HashSet<>();
+
+	@OneToMany(mappedBy = "comedor")
+	private Set<Donacion> donaciones;
 
 	public Comedor() {
 
