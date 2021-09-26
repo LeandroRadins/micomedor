@@ -1,7 +1,5 @@
 package com.cordia.micomedor.micomedor.model;
 
-import org.jetbrains.annotations.NotNull;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -32,29 +30,30 @@ public class Comedor {
     @Column(name = "telefono")
     private String telefono;
 
-    //Relaciones
-    //Un comedor puede tener uno o mas representantes
+    // Relaciones
+    
+    // Un comedor puede tener uno o mas representantes
     @OneToMany(mappedBy = "comedor")
-    private Set<Representante> representantes;
+    private Set<Representante> representantes = new HashSet<>();
 
-    //Un comedor puede tener muchas donaciones
+    // Un comedor puede tener muchas donaciones
     @OneToMany(mappedBy = "comedor")
-    private Set<Donacion> donaciones;
+    private Set<Donacion> donaciones = new HashSet<>();
 
     // Un comedor tiene especificamente 365 jornadas, donde cada jornada representa un dia
     @OneToMany(mappedBy = "comedor")
-    private Set<Jornada> jornadas;
+    private Set<Jornada> jornadas = new HashSet<>();
 
-    @OneToMany
-    @JoinColumn(name = "id_comedor")
+    // Un comedor puede tener muchos comensales inscriptos
+    @OneToMany(mappedBy = "comedor")
     private Set<Comensal> comensales = new HashSet<>();
 
     public Comedor() {
 
     }
 
-    //Copy constructor para el fake de comedores manual.
-    public Comedor(@NotNull Comedor comedor) {
+    public Comedor(Comedor comedor) {
+        //TODO: Hacer el copy constructor para el "faker"
         this.nombre = comedor.getNombre();
         this.direccion = comedor.getDireccion();
         this.correo = comedor.getCorreo();
@@ -145,7 +144,7 @@ public class Comedor {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Comedor comedor = (Comedor) o;
-        return Objects.equals(getId_comedor(), comedor.getId_comedor()) && Objects.equals(getNombre(), comedor.getNombre()) && Objects.equals(getDireccion(), comedor.getDireccion()) && Objects.equals(getCorreo(), comedor.getCorreo()) && Objects.equals(getTelefono(), comedor.getTelefono()) && Objects.equals(getRepresentantes(), comedor.getRepresentantes()) && Objects.equals(getDonaciones(), comedor.getDonaciones()) && Objects.equals(getJornadas(), comedor.getJornadas()) && Objects.equals(getComensales(), comedor.getComensales());
+        return getId_comedor().equals(comedor.getId_comedor()) && Objects.equals(getNombre(), comedor.getNombre()) && Objects.equals(getDireccion(), comedor.getDireccion()) && Objects.equals(getCorreo(), comedor.getCorreo()) && Objects.equals(getTelefono(), comedor.getTelefono()) && Objects.equals(getRepresentantes(), comedor.getRepresentantes()) && Objects.equals(getDonaciones(), comedor.getDonaciones()) && Objects.equals(getJornadas(), comedor.getJornadas()) && Objects.equals(getComensales(), comedor.getComensales());
     }
 
     @Override
