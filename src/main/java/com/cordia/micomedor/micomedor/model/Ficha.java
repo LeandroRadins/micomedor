@@ -1,17 +1,12 @@
 /**
- * 
+ *
  */
 package com.cordia.micomedor.micomedor.model;
 
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import java.util.Set;
 
 /**
  * @author Leandro
@@ -22,75 +17,80 @@ import javax.persistence.Table;
 @Table(name = "fichas")
 public class Ficha {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_ficha")
-	@SequenceGenerator(name = "seq_ficha", allocationSize = 1)
-	private Long id_ficha;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_ficha")
+    @SequenceGenerator(name = "seq_ficha", allocationSize = 1)
+    private Long id_ficha;
 
-	@Column(name = "nombre")
-	private String nombre;
-	// #TODO: agregar relaciones con patologias
+    @Column(name = "nombre")
+    private String nombre;
 
-	public Ficha() {
+    @OneToMany(mappedBy = "ficha")
+    private Set<Alergia> alergias = new HashSet<>();
 
-	}
+    @OneToMany(mappedBy = "ficha")
+    private Set<Intolerancia> intolerancias = new HashSet<>();
 
-	public Ficha(String nombre) {
-		this.nombre = nombre;
-	}
 
-	/**
-	 * @return the id_ficha
-	 */
-	public Long getId_ficha() {
-		return id_ficha;
-	}
+    public Ficha() {
+    }
 
-	/**
-	 * @return the nombre
-	 */
-	public String getNombre() {
-		return nombre;
-	}
+    public Ficha(String nombre) {
+        this.nombre = nombre;
+    }
 
-	/**
-	 * @param id_ficha the id_ficha to set
-	 */
-	public void setId_ficha(Long id_ficha) {
-		this.id_ficha = id_ficha;
-	}
+    public Long getId_ficha() {
+        return id_ficha;
+    }
 
-	/**
-	 * @param nombre the nombre to set
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setId_ficha(Long id_ficha) {
+        this.id_ficha = id_ficha;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id_ficha, nombre);
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!(obj instanceof Ficha))
-			return false;
-		Ficha other = (Ficha) obj;
-		return Objects.equals(id_ficha, other.id_ficha) && Objects.equals(nombre, other.nombre);
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Ficha [id_ficha=");
-		builder.append(id_ficha);
-		builder.append(", nombre=");
-		builder.append(nombre);
-		builder.append("]");
-		return builder.toString();
-	}
+    public Set<Alergia> getAlergias() {
+        return alergias;
+    }
 
+    public void setAlergias(Set<Alergia> alergias) {
+        this.alergias = alergias;
+    }
+
+    public Set<Intolerancia> getIntolerancias() {
+        return intolerancias;
+    }
+
+    public void setIntolerancias(Set<Intolerancia> intolerancias) {
+        this.intolerancias = intolerancias;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ficha)) return false;
+        Ficha ficha = (Ficha) o;
+        return getId_ficha().equals(ficha.getId_ficha()) && Objects.equals(getNombre(), ficha.getNombre()) && Objects.equals(getAlergias(), ficha.getAlergias()) && Objects.equals(getIntolerancias(), ficha.getIntolerancias());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId_ficha(), getNombre(), getAlergias(), getIntolerancias());
+    }
+
+    @Override
+    public String toString() {
+        return "Ficha{" +
+                "id_ficha=" + id_ficha +
+                ", nombre='" + nombre + '\'' +
+                ", alergias=" + alergias +
+                ", intolerancias=" + intolerancias +
+                '}';
+    }
 }

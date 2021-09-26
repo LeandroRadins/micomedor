@@ -23,13 +23,21 @@ public class Asistencia {
     @Column(name = "asistencia")
     private boolean asistencia;
 
+    // Relaciones
+
+    // Una asistencia esta asociada a un solo comensal
+    @ManyToOne
+    @JoinColumn(name = "id_comensal")
+    private Comensal comensal;
+
     public Asistencia() {
 
     }
 
-    public Asistencia(Date dia, boolean asistencia, Usuario usuario) {
+    public Asistencia(Date dia, boolean asistencia, Comensal comensal) {
         this.dia = dia;
         this.asistencia = true;
+        this.comensal = comensal;
     }
 
     public Long getId_asistencia() {
@@ -56,18 +64,25 @@ public class Asistencia {
         this.asistencia = asistencia;
     }
 
+    public Comensal getComensal() {
+        return comensal;
+    }
+
+    public void setComensal(Comensal comensal) {
+        this.comensal = comensal;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Asistencia)) return false;
         Asistencia that = (Asistencia) o;
-        return isAsistencia() == that.isAsistencia() && Objects.equals(getId_asistencia(), that.getId_asistencia()) && Objects.equals(getDia(), that.getDia());
+        return isAsistencia() == that.isAsistencia() && getId_asistencia().equals(that.getId_asistencia()) && Objects.equals(getDia(), that.getDia()) && Objects.equals(getComensal(), that.getComensal());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_asistencia(), getDia(), isAsistencia());
+        return Objects.hash(getId_asistencia(), getDia(), isAsistencia(), getComensal());
     }
 
     @Override
@@ -76,6 +91,7 @@ public class Asistencia {
                 "id_asistencia=" + id_asistencia +
                 ", dia=" + dia +
                 ", asistencia=" + asistencia +
+                ", comensal=" + comensal +
                 '}';
     }
 }

@@ -18,13 +18,17 @@ public class Comensal extends Usuario {
 
     // Relaciones
     // Un comensal tiene muchas asistencias, especificamente 365 asistencias
-    @OneToMany
+    @OneToMany(mappedBy = "comensal")
     private Set<Asistencia> asistencias = new HashSet<>();
 
     // Un comensal puede acceder a un solo comedor en simultaneo
     @ManyToOne
     @JoinColumn(name = "id_comedor")
     private Comedor comedor;
+
+    @OneToOne
+    @JoinColumn(name = "id_ficha")
+    private Ficha ficha;
 
     public Comensal() {
 
@@ -58,18 +62,26 @@ public class Comensal extends Usuario {
         this.comedor = comedor;
     }
 
+    public Ficha getFicha() {
+        return ficha;
+    }
+
+    public void setFicha(Ficha ficha) {
+        this.ficha = ficha;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Comensal)) return false;
         if (!super.equals(o)) return false;
         Comensal comensal = (Comensal) o;
-        return isMarcaAsistencia() == comensal.isMarcaAsistencia() && Objects.equals(getAsistencias(), comensal.getAsistencias()) && Objects.equals(getComedor(), comensal.getComedor());
+        return isMarcaAsistencia() == comensal.isMarcaAsistencia() && Objects.equals(getAsistencias(), comensal.getAsistencias()) && Objects.equals(getComedor(), comensal.getComedor()) && Objects.equals(getFicha(), comensal.getFicha());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), isMarcaAsistencia(), getAsistencias(), getComedor());
+        return Objects.hash(super.hashCode(), isMarcaAsistencia(), getAsistencias(), getComedor(), getFicha());
     }
 
     @Override
@@ -78,6 +90,7 @@ public class Comensal extends Usuario {
                 "marcaAsistencia=" + marcaAsistencia +
                 ", asistencias=" + asistencias +
                 ", comedor=" + comedor +
+                ", ficha=" + ficha +
                 '}';
     }
 }
