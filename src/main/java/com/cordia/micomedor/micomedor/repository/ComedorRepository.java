@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cordia.micomedor.micomedor.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;

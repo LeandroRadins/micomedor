@@ -5,6 +5,7 @@ package com.cordia.micomedor.micomedor.model;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,12 +28,19 @@ public class Donacion {
 	@SequenceGenerator(name = "seq_donacion", allocationSize = 1)
 	private Long id_donacion;
 
+	@Column(name = "cantidad")
+	private double cantidad;
+
 	@ManyToOne
 	@JoinColumn(name = "tipo_donacion")
 	private TipoDonacion tipo_donacion;
 
 	@ManyToOne
-	@JoinColumn(name = "comedor")
+	@JoinColumn(name = "id_donante")
+	private Donante donante;
+
+	@ManyToOne
+	@JoinColumn(name = "id_comedor")
 	private Comedor comedor;
 
 	public Donacion() {
