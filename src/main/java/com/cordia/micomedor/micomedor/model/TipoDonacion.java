@@ -1,114 +1,80 @@
 package com.cordia.micomedor.micomedor.model;
 
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
 /**
  * @author Leandro
- *
  */
 
 @Entity
 @Table(name = "tipo_donacion")
 public class TipoDonacion {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tipoDonacion")
-	@SequenceGenerator(name = "seq_tipoDonacion", allocationSize = 1)
-	private Long id_tipoDonacion;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tipoDonacion")
+    @SequenceGenerator(name = "seq_tipoDonacion", allocationSize = 1)
+    private Long id_tipoDonacion;
 
-	@Column(name = "nombre")
-	private String nombre;
+    @Column(name = "nombre")
+    private String nombre;
 
-	@OneToMany(mappedBy = "tipo_donacion")
-	private Set<Donacion> donaciones;
+    @OneToMany(mappedBy = "tipo_donacion")
+    private Set<Donacion> donaciones = new HashSet<>();
 
-	public TipoDonacion() {
+    public TipoDonacion() {
 
-	}
+    }
 
-	public TipoDonacion(String nombre) {
-		this.nombre = nombre;
-	}
+    public TipoDonacion(String nombre) {
+        this.nombre = nombre;
+    }
 
-	/**
-	 * @return the id_tipoDonacion
-	 */
-	public Long getId_tipoDonacion() {
-		return id_tipoDonacion;
-	}
+    public Long getId_tipoDonacion() {
+        return id_tipoDonacion;
+    }
 
-	/**
-	 * @return the nombre
-	 */
-	public String getNombre() {
-		return nombre;
-	}
+    public void setId_tipoDonacion(Long id_tipoDonacion) {
+        this.id_tipoDonacion = id_tipoDonacion;
+    }
 
-	/**
-	 * @return the donaciones
-	 */
-	public Set<Donacion> getDonaciones() {
-		return donaciones;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	/**
-	 * @param id_tipoDonacion the id_tipoDonacion to set
-	 */
-	public void setId_tipoDonacion(Long id_tipoDonacion) {
-		this.id_tipoDonacion = id_tipoDonacion;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	/**
-	 * @param nombre the nombre to set
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public Set<Donacion> getDonaciones() {
+        return donaciones;
+    }
 
-	/**
-	 * @param donaciones the donaciones to set
-	 */
-	public void setDonaciones(Set<Donacion> donaciones) {
-		this.donaciones = donaciones;
-	}
+    public void setDonaciones(Set<Donacion> donaciones) {
+        this.donaciones = donaciones;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(donaciones, id_tipoDonacion, nombre);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TipoDonacion)) return false;
+        TipoDonacion that = (TipoDonacion) o;
+        return getId_tipoDonacion().equals(that.getId_tipoDonacion()) && Objects.equals(getNombre(), that.getNombre()) && Objects.equals(getDonaciones(), that.getDonaciones());
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!(obj instanceof TipoDonacion))
-			return false;
-		TipoDonacion other = (TipoDonacion) obj;
-		return Objects.equals(donaciones, other.donaciones) && Objects.equals(id_tipoDonacion, other.id_tipoDonacion)
-				&& Objects.equals(nombre, other.nombre);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId_tipoDonacion(), getNombre(), getDonaciones());
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("TipoDonacion [id_tipoDonacion=");
-		builder.append(id_tipoDonacion);
-		builder.append(", nombre=");
-		builder.append(nombre);
-		builder.append(", donaciones=");
-		builder.append(donaciones);
-		builder.append("]");
-		return builder.toString();
-	}
-
+    @Override
+    public String toString() {
+        return "TipoDonacion{" +
+                "id_tipoDonacion=" + id_tipoDonacion +
+                ", nombre='" + nombre + '\'' +
+                ", donaciones=" + donaciones +
+                '}';
+    }
 }

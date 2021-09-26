@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.cordia.micomedor.micomedor.model;
 
 import javax.persistence.*;
@@ -23,29 +20,28 @@ public class Donacion {
     private double cantidad;
 
     // Relaciones
-    // Una donacion pertenece a un tipo de donacion. Ejemplo Donacion 1 de tipo En efectivo
-    @ManyToOne
-    @JoinColumn(name = "tipo_donacion")
-    private TipoDonacion tipo_donacion;
 
-    // Una donacion esta hecha por uno o mas donantes
+    // Una donacion pertenece a un tipo de donacion. Ejemplo Donacion 1 de tipo "En efectivo"
     @ManyToOne
-    @JoinColumn(name = "id_donante")
-    private Donante donante;
+    @JoinColumn(name = "id_tipo_donacion")
+    private TipoDonacion tipo_donacion;
 
     // Una donacion esta asociada a un solo comedor
     @ManyToOne
     @JoinColumn(name = "id_comedor")
     private Comedor comedor;
 
+    // Una donacion esta hecha por un donante
+    @ManyToOne
+    @JoinColumn(name = "id_donante")
+    private Donante donante;
+
     public Donacion() {
     }
 
-    public Donacion(double cantidad, TipoDonacion tipo_donacion, Donante donante, Comedor comedor) {
+    public Donacion(double cantidad, TipoDonacion tipo_donacion) {
         this.cantidad = cantidad;
         this.tipo_donacion = tipo_donacion;
-        this.donante = donante;
-        this.comedor = comedor;
     }
 
     public Long getId_donacion() {
@@ -72,14 +68,6 @@ public class Donacion {
         this.tipo_donacion = tipo_donacion;
     }
 
-    public Donante getDonante() {
-        return donante;
-    }
-
-    public void setDonante(Donante donante) {
-        this.donante = donante;
-    }
-
     public Comedor getComedor() {
         return comedor;
     }
@@ -88,17 +76,25 @@ public class Donacion {
         this.comedor = comedor;
     }
 
+    public Donante getDonante() {
+        return donante;
+    }
+
+    public void setDonante(Donante donante) {
+        this.donante = donante;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Donacion)) return false;
         Donacion donacion = (Donacion) o;
-        return Double.compare(donacion.getCantidad(), getCantidad()) == 0 && getId_donacion().equals(donacion.getId_donacion()) && Objects.equals(getTipo_donacion(), donacion.getTipo_donacion()) && Objects.equals(getDonante(), donacion.getDonante()) && Objects.equals(getComedor(), donacion.getComedor());
+        return Double.compare(donacion.getCantidad(), getCantidad()) == 0 && getId_donacion().equals(donacion.getId_donacion()) && Objects.equals(getTipo_donacion(), donacion.getTipo_donacion()) && Objects.equals(getComedor(), donacion.getComedor()) && Objects.equals(getDonante(), donacion.getDonante());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_donacion(), getCantidad(), getTipo_donacion(), getDonante(), getComedor());
+        return Objects.hash(getId_donacion(), getCantidad(), getTipo_donacion(), getComedor(), getDonante());
     }
 
     @Override
@@ -107,8 +103,8 @@ public class Donacion {
                 "id_donacion=" + id_donacion +
                 ", cantidad=" + cantidad +
                 ", tipo_donacion=" + tipo_donacion +
-                ", donante=" + donante +
                 ", comedor=" + comedor +
+                ", donante=" + donante +
                 '}';
     }
 }
