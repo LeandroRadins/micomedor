@@ -23,6 +23,14 @@ public class Representante extends Usuario {
     @JoinColumn(name = "id_comedor")
     private Comedor comedor;
 
+    public Representante() {
+
+    }
+
+    public Representante(Comedor comedor) {
+        this.comedor = comedor;
+    }
+
     public Comedor getComedor() {
         return comedor;
     }

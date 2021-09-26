@@ -26,6 +26,14 @@ public class Comensal extends Usuario {
     @JoinColumn(name = "id_comedor")
     private Comedor comedor;
 
+    public Comensal() {
+
+    }
+
+    public Comensal(boolean marcaAsistencia) {
+        this.marcaAsistencia = marcaAsistencia;
+    }
+
     public boolean isMarcaAsistencia() {
         return marcaAsistencia;
     }
