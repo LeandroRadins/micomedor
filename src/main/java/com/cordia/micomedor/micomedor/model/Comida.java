@@ -28,6 +28,11 @@ public class Comida {
     @ManyToMany(mappedBy = "comidas")
     private Set<Plato> platos = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "comida_ingrediente", joinColumns = {@JoinColumn(name = "id_comida", referencedColumnName = "id_comida")},
+            inverseJoinColumns = {@JoinColumn(name = "id_ingrediente", referencedColumnName = "id_ingrediente")})
+    private Set<Ingrediente> ingredientes = new HashSet<>();
+
     // #TODO: agregar la relacion de comida con ingrediente.
 
     public Comida() {
@@ -62,17 +67,25 @@ public class Comida {
         this.platos = platos;
     }
 
+    public Set<Ingrediente> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(Set<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Comida)) return false;
         Comida comida = (Comida) o;
-        return getId_comida().equals(comida.getId_comida()) && Objects.equals(getNombre(), comida.getNombre()) && Objects.equals(getPlatos(), comida.getPlatos());
+        return getId_comida().equals(comida.getId_comida()) && Objects.equals(getNombre(), comida.getNombre()) && Objects.equals(getPlatos(), comida.getPlatos()) && Objects.equals(getIngredientes(), comida.getIngredientes());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_comida(), getNombre(), getPlatos());
+        return Objects.hash(getId_comida(), getNombre(), getPlatos(), getIngredientes());
     }
 
     @Override
@@ -81,6 +94,7 @@ public class Comida {
                 "id_comida=" + id_comida +
                 ", nombre='" + nombre + '\'' +
                 ", platos=" + platos +
+                ", ingredientes=" + ingredientes +
                 '}';
     }
 }
