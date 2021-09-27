@@ -20,6 +20,10 @@ public class Ingrediente {
     @ManyToMany(mappedBy = "ingredientes")
     private Set<Comida> comidas = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_ingrediente")
+    private TipoIngrediente tipoIngrediente;
+
     public Ingrediente() {
 
     }
@@ -52,17 +56,25 @@ public class Ingrediente {
         this.comidas = comidas;
     }
 
+    public TipoIngrediente getTipoIngrediente() {
+        return tipoIngrediente;
+    }
+
+    public void setTipoIngrediente(TipoIngrediente tipoIngrediente) {
+        this.tipoIngrediente = tipoIngrediente;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Ingrediente)) return false;
         Ingrediente that = (Ingrediente) o;
-        return getId_ingrediente().equals(that.getId_ingrediente()) && Objects.equals(getNombre(), that.getNombre()) && Objects.equals(getComidas(), that.getComidas());
+        return getId_ingrediente().equals(that.getId_ingrediente()) && Objects.equals(getNombre(), that.getNombre()) && Objects.equals(getComidas(), that.getComidas()) && Objects.equals(getTipoIngrediente(), that.getTipoIngrediente());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_ingrediente(), getNombre(), getComidas());
+        return Objects.hash(getId_ingrediente(), getNombre(), getComidas(), getTipoIngrediente());
     }
 
     @Override
@@ -71,6 +83,7 @@ public class Ingrediente {
                 "id_ingrediente=" + id_ingrediente +
                 ", nombre='" + nombre + '\'' +
                 ", comidas=" + comidas +
+                ", tipoIngrediente=" + tipoIngrediente +
                 '}';
     }
 }

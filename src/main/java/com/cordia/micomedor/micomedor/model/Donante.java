@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.cordia.micomedor.micomedor.model;
 
 import javax.persistence.DiscriminatorValue;
@@ -9,10 +6,6 @@ import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author Leandro
- *
- */
 @Entity
 @DiscriminatorValue(value = "DONANTE")
 public class Donante extends Usuario {
