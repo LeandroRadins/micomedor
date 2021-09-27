@@ -27,6 +27,11 @@ public class Plato {
     @ManyToMany(mappedBy = "platos")
     private Set<Jornada> jornadas = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "plato_comida", joinColumns = {@JoinColumn(name = "id_plato", referencedColumnName = "id_plato")},
+            inverseJoinColumns = {@JoinColumn(name = "id_comida", referencedColumnName = "id_comida")})
+    private Set<Comida> comidas = new HashSet<>();
+
     public Plato() {
 
     }
@@ -59,17 +64,25 @@ public class Plato {
         this.jornadas = jornadas;
     }
 
+    public Set<Comida> getComidas() {
+        return comidas;
+    }
+
+    public void setComidas(Set<Comida> comidas) {
+        this.comidas = comidas;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Plato)) return false;
         Plato plato = (Plato) o;
-        return getId_plato().equals(plato.getId_plato()) && Objects.equals(getNombre(), plato.getNombre()) && Objects.equals(getJornadas(), plato.getJornadas());
+        return getId_plato().equals(plato.getId_plato()) && Objects.equals(getNombre(), plato.getNombre()) && Objects.equals(getJornadas(), plato.getJornadas()) && Objects.equals(getComidas(), plato.getComidas());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_plato(), getNombre(), getJornadas());
+        return Objects.hash(getId_plato(), getNombre(), getJornadas(), getComidas());
     }
 
     @Override
@@ -78,6 +91,7 @@ public class Plato {
                 "id_plato=" + id_plato +
                 ", nombre='" + nombre + '\'' +
                 ", jornadas=" + jornadas +
+                ", comidas=" + comidas +
                 '}';
     }
 }
