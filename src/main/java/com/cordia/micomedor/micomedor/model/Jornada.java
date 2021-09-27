@@ -2,7 +2,9 @@ package com.cordia.micomedor.micomedor.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Leandro
@@ -25,6 +27,11 @@ public class Jornada {
     @ManyToOne
     @JoinColumn(name = "id_comedor")
     private Comedor comedor;
+
+    @ManyToMany
+    @JoinTable(name = "jornada_plato", joinColumns = {@JoinColumn(name = "id_jornada", referencedColumnName = "id_jornada")},
+            inverseJoinColumns = {@JoinColumn(name = "id_plato", referencedColumnName = "id_plato")})
+    private Set<Plato> platos = new HashSet<>();
 
     public Jornada() {
     }
@@ -58,17 +65,25 @@ public class Jornada {
         this.comedor = comedor;
     }
 
+    public Set<Plato> getPlatos() {
+        return platos;
+    }
+
+    public void setPlatos(Set<Plato> platos) {
+        this.platos = platos;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Jornada)) return false;
         Jornada jornada = (Jornada) o;
-        return id_jornada.equals(jornada.id_jornada) && Objects.equals(fecha, jornada.fecha) && Objects.equals(comedor, jornada.comedor);
+        return getId_jornada().equals(jornada.getId_jornada()) && Objects.equals(getFecha(), jornada.getFecha()) && Objects.equals(getComedor(), jornada.getComedor()) && Objects.equals(getPlatos(), jornada.getPlatos());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_jornada, fecha, comedor);
+        return Objects.hash(getId_jornada(), getFecha(), getComedor(), getPlatos());
     }
 
     @Override
@@ -77,6 +92,7 @@ public class Jornada {
                 "id_jornada=" + id_jornada +
                 ", fecha=" + fecha +
                 ", comedor=" + comedor +
+                ", platos=" + platos +
                 '}';
     }
 }

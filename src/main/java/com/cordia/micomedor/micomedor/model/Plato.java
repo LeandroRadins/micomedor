@@ -1,24 +1,12 @@
 /**
- * 
+ *
  */
 package com.cordia.micomedor.micomedor.model;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 /**
  * @author Leandro
@@ -28,78 +16,68 @@ import javax.persistence.Table;
 @Table(name = "platos")
 public class Plato {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_plato")
-	@SequenceGenerator(name = "seq_plato", allocationSize = 1)
-	private Long id_plato;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_plato")
+    @SequenceGenerator(name = "seq_plato", allocationSize = 1)
+    private Long id_plato;
 
-	@Column(name = "nombre")
-	private String nombre;
+    @Column(name = "nombre")
+    private String nombre;
 
-	public Plato() {
+    @ManyToMany(mappedBy = "platos")
+    private Set<Jornada> jornadas = new HashSet<>();
 
-	}
+    public Plato() {
 
-	/**
-	 * @param id_plato
-	 * @param nombre
-	 */
-	public Plato(Long id_plato, String nombre) {
-		this.id_plato = id_plato;
-		this.nombre = nombre;
-	}
+    }
 
-	/**
-	 * @return the id_plato
-	 */
-	public Long getId_plato() {
-		return id_plato;
-	}
+    public Plato(String nombre) {
+        this.nombre = nombre;
+    }
 
-	/**
-	 * @return the nombre
-	 */
-	public String getNombre() {
-		return nombre;
-	}
+    public Long getId_plato() {
+        return id_plato;
+    }
 
-	/**
-	 * @param id_plato the id_plato to set
-	 */
-	public void setId_plato(Long id_plato) {
-		this.id_plato = id_plato;
-	}
+    public void setId_plato(Long id_plato) {
+        this.id_plato = id_plato;
+    }
 
-	/**
-	 * @param nombre the nombre to set
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id_plato, nombre);
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!(obj instanceof Plato))
-			return false;
-		Plato other = (Plato) obj;
-		return Objects.equals(id_plato, other.id_plato) && Objects.equals(nombre, other.nombre);
-	}
+    public Set<Jornada> getJornadas() {
+        return jornadas;
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Plato [id_plato=");
-		builder.append(id_plato);
-		builder.append(", nombre=");
-		builder.append(nombre);
-		builder.append("]");
-		return builder.toString();
-	}
+    public void setJornadas(Set<Jornada> jornadas) {
+        this.jornadas = jornadas;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Plato)) return false;
+        Plato plato = (Plato) o;
+        return getId_plato().equals(plato.getId_plato()) && Objects.equals(getNombre(), plato.getNombre()) && Objects.equals(getJornadas(), plato.getJornadas());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId_plato(), getNombre(), getJornadas());
+    }
+
+    @Override
+    public String toString() {
+        return "Plato{" +
+                "id_plato=" + id_plato +
+                ", nombre='" + nombre + '\'' +
+                ", jornadas=" + jornadas +
+                '}';
+    }
 }
