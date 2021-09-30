@@ -1,4 +1,3 @@
-
 package com.cordia.micomedor.micomedor.controller;
 
 import com.cordia.micomedor.micomedor.model.Comedor;
@@ -12,10 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @author Leandro
- *
- */
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
@@ -28,11 +23,12 @@ public class ComedorController {
     @GetMapping("/comedores")
     public ResponseEntity<List<Comedor>> getComedores(@RequestParam(required = false) String nombre) {
         try {
-            List<Comedor> comedores = new ArrayList<Comedor>();
+            List<Comedor> comedores = new ArrayList<>();
             if (nombre == null) {
-                comedorRepository.findAll().forEach(comedores::add);
+                comedores.addAll(comedorRepository.findAll());
             } else {
-                comedorRepository.findByNombre(nombre).forEach(comedores::add);
+                comedores.addAll(comedorRepository.findByNombre(nombre));
+//                comedorRepository.findByNombre(nombre).forEach(comedores::add);
             }
             if (comedores.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
