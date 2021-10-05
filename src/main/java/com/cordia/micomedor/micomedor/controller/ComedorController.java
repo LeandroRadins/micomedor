@@ -21,14 +21,13 @@ public class ComedorController {
 
     // Obtener todos los comedores
     @GetMapping("/comedores")
-    public ResponseEntity<List<Comedor>> getComedores(@RequestParam(required = false) String nombre) {
+    public ResponseEntity<List<Comedor>> getAllComedores(@RequestParam(required = false) String nombre) {
         try {
             List<Comedor> comedores = new ArrayList<>();
             if (nombre == null) {
                 comedores.addAll(comedorRepository.findAll());
             } else {
                 comedores.addAll(comedorRepository.findByNombre(nombre));
-//                comedorRepository.findByNombre(nombre).forEach(comedores::add);
             }
             if (comedores.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

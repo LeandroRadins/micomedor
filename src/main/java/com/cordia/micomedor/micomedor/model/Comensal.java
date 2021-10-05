@@ -1,6 +1,7 @@
 package com.cordia.micomedor.micomedor.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -32,6 +33,11 @@ public class Comensal extends Usuario {
 
     public Comensal() {
 
+    }
+
+    public Comensal(int dni, String nombre, String apellido, Date fechaNac, String email, String telefono, boolean marcaAsistencia) {
+        super(dni, nombre, apellido, fechaNac, email, telefono);
+        this.marcaAsistencia = marcaAsistencia;
     }
 
     public Comensal(boolean marcaAsistencia) {
