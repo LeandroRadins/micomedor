@@ -25,12 +25,9 @@ public class ComensalController {
     @GetMapping("/comensales")
     public ResponseEntity<List<Comensal>> getAllComensales(@RequestParam(required = false) String nombre) {
         try {
-            System.out.println("1");
             List<Comensal> comensales = new ArrayList<>();
             if (nombre == null) {
-                System.out.println("2");
-                /*comensales.addAll(comensalRepository.findAll());*/
-                comensalRepository.findAll().forEach(comensales::add);
+                comensales.addAll(comensalRepository.findAll());
             } else {
                 comensales.addAll(comensalRepository.findByNombre(nombre));
             }
@@ -40,7 +37,6 @@ public class ComensalController {
             return new ResponseEntity<>(comensales, HttpStatus.OK);
 
         } catch (Exception e) {
-            System.out.println("fallo");
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -63,5 +59,41 @@ public class ComensalController {
         }
     }
 
+    @PutMapping("/comensales/{id}")
+    public ResponseEntity<Comensal> updateComensal(@PathVariable("id") Long id, @RequestBody Comensal comensal) {
+        Optional<Comensal> comensalData = comensalRepository.findById(id);
+        if (comensalData.isPresent()) {
+            Comensal _comensal = comensalData.get();
+            _comensal.setNombre(comensal.getNombre());
+            _comensal.setApellido(comensal.getApellido());
+            _comensal.setDni(comensal.getDni());
+            _comensal.setFechaNac(comensal.getFechaNac());
+            _comensal.setEmail(comensal.getEmail());
+            _comensal.setTelefono(comensal.getTelefono());
+            _comensal.setComedor(comensal.getComedor());
+            return new ResponseEntity<>(comensalRepository.save(_comensal), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
+    @DeleteMapping("/comensales/{id}")
+    public ResponseEntity<HttpStatus> deleteComensal(@PathVariable("id") Long id) {
+        try {
+            comensalRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/comensales")
+    public ResponseEntity<HttpStatus> deleteAllComensales() {
+        try {
+            comensalRepository.deleteAll();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

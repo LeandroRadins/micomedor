@@ -1,5 +1,7 @@
 package com.cordia.micomedor.micomedor.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -25,6 +27,7 @@ public class Comensal extends Usuario {
     // Un comensal puede acceder a un solo comedor en simultaneo
     @ManyToOne
     @JoinColumn(name = "id_comedor")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Comedor comedor;
 
     @OneToOne
@@ -93,10 +96,6 @@ public class Comensal extends Usuario {
     @Override
     public String toString() {
         return "Comensal{" +
-                "marcaAsistencia=" + marcaAsistencia +
-                ", asistencias=" + asistencias +
-                ", comedor=" + comedor +
-                ", ficha=" + ficha +
-                '}';
+                "marcaAsistencia=" + marcaAsistencia;
     }
 }

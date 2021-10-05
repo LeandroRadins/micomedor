@@ -20,7 +20,7 @@ public class Representante extends Usuario {
     // Relaciones
     // Un Representante forma parte de un solo comedor
     @ManyToOne
-    @JoinColumn(name = "id_comedor")
+    @JoinColumn(name = "id_comedor_rep")
     private Comedor comedor;
 
     public Representante() {

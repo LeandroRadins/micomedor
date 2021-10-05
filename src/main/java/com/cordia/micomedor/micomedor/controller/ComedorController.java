@@ -1,6 +1,7 @@
 package com.cordia.micomedor.micomedor.controller;
 
 import com.cordia.micomedor.micomedor.model.Comedor;
+import com.cordia.micomedor.micomedor.model.Comensal;
 import com.cordia.micomedor.micomedor.repository.ComedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,6 @@ public class ComedorController {
     @GetMapping("/comedores/{id}")
     public ResponseEntity<Comedor> getComedoresId(@PathVariable("id") Long id) {
         Optional<Comedor> comedorData = comedorRepository.findById(id);
-
         if (comedorData.isPresent()) {
             return new ResponseEntity<>(comedorData.get(), HttpStatus.OK);
         } else {
@@ -73,6 +73,7 @@ public class ComedorController {
             _comedor.setDireccion(comedor.getDireccion());
             _comedor.setCorreo(comedor.getCorreo());
             _comedor.setTelefono(comedor.getTelefono());
+            _comedor.setComensales(comedor.getComensales());
             return new ResponseEntity<>(comedorRepository.save(_comedor), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -97,7 +98,24 @@ public class ComedorController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
 
+    @GetMapping("/comedores/{id}/comensales")
+    public ResponseEntity<List<Comensal>> getAllComensales(@PathVariable("id") long id) {
+        try {
+            List<Comensal> comensales = new ArrayList<>();
+            Optional<Comedor> comedorData = comedorRepository.findById(id);
+            if (comedorData.isPresent()) {
+                Comedor _comedor = comedorData.get();
+                System.out.println(_comedor.getComensales());
+                _comedor.getComensales().forEach(comensales::add);
+                return new ResponseEntity<>(comensales, HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }
